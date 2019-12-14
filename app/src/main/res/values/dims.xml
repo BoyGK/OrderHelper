@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="paddingTopOrBottom">10dp</dimen>
+    <dimen name="paddingLeftOrRight">16dp</dimen>
+    <dimen name="paddingTop">15dp</dimen>
+    <dimen name="paddingBottom">5dp</dimen>
+    <dimen name="margin16">16dp</dimen>
+
+    <dimen name="itemNameSp">16sp</dimen>
+    <dimen name="itemTextSp">14sp</dimen>
+</resources>
