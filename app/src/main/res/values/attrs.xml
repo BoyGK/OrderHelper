@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="CommonItemView">
+        <attr name="itemType" format="string" />
+        <attr name="itemName" format="string" />
+        <attr name="itemPriceIn" format="float" />
+        <attr name="itemPriceOut" format="float" />
+        <attr name="itemNum" format="integer" />
+        <attr name="itemDate" format="string" />
+        <attr name="itemPriceAll" format="float" />
+        <attr name="itemInCome" format="float" />
+        <attr name="itemClient" format="string" />
+        <attr name="itemPrice" format="float" />
+    </declare-styleable>
+
+</resources>
