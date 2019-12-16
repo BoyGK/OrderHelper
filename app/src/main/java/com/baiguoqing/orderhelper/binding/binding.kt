@@ -21,14 +21,6 @@ object BindingAdapters {
     }
 
     @JvmStatic
-    @BindingAdapter(value = ["refresh"])
-    fun autoRefreshAdapter(recyclerView: RecyclerView, boolean: Boolean) {
-        if (boolean) {
-            recyclerView.adapter?.notifyDataSetChanged()
-        }
-    }
-
-    @JvmStatic
     @BindingAdapter(value = ["itemClient"])
     fun itemClient(commonItemView: CommonItemView, client: String) {
         commonItemView.setClientName(client)

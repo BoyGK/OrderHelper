@@ -8,12 +8,10 @@ import com.baiguoqing.orderhelper.bean.ItemData
 /**
  * Created by "nullpointexception0" on 2019/12/15.
  */
-class ItemModel constructor(
-    item: ItemData? = null
-) : BaseObservable() {
+class ItemModel(item: ItemData) : BaseObservable() {
 
     @Bindable
-    var itemData: ItemData? = item
+    var itemData: ItemData = item
         set(value) {
             field = value
             notifyPropertyChanged(BR.data)
