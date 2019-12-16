@@ -1,2 +1,2 @@
-include ':app'
+include ':app', ':bottomtools'
 rootProject.name='OrderHelper'

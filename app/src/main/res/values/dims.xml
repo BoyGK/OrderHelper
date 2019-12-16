@@ -8,4 +8,5 @@
 
     <dimen name="itemNameSp">16sp</dimen>
     <dimen name="itemTextSp">14sp</dimen>
+    <dimen name="titleSp">18sp</dimen>
 </resources>

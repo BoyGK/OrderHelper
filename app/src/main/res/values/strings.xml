@@ -8,4 +8,6 @@
     <string name="order_income">收益:</string>
     <string name="order_price">订单金额:</string>
     <string name="todo">TODO</string>
+    <string name="edit_list_goods">编辑配货列表</string>
+    <string name="new_order">新建订单</string>
 </resources>
