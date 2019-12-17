@@ -15,10 +15,12 @@ class CommonItemView @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : ConstraintLayout(context, attributeSet, defStyleAttr) {
 
-    val ITEM_TYPE_COMMODITY = "commodity"
-    val ITEM_TYPE_ORDER_DATE = "date"
-    val ITEM_TYPE_ORDER_CLIENT = "client"
-    val ITEM_TYPE_ADD = "add"
+    companion object {
+        const val ITEM_TYPE_COMMODITY = "commodity"
+        const val ITEM_TYPE_ORDER_DATE = "date"
+        const val ITEM_TYPE_ORDER_CLIENT = "client"
+        const val ITEM_TYPE_ADD = "add"
+    }
 
     /**
      * 商品item

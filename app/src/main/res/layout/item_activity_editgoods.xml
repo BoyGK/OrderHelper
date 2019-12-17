@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="data"
+            type="com.baiguoqing.orderhelper.model.ItemModel" />
+
+    </data>
+
+    <com.baiguoqing.orderhelper.widget.CommonItemView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_click"
+        app:itemClient="@{data.itemData.client}"
+        app:itemDate="@{data.itemData.date}"
+        app:itemInCome="@{data.itemData.inCome}"
+        app:itemName="@{data.itemData.name}"
+        app:itemNum="@{data.itemData.num}"
+        app:itemPrice="@{data.itemData.price}"
+        app:itemPriceAll="@{data.itemData.priceAll}"
+        app:itemPriceIn="@{data.itemData.priceIn}"
+        app:itemPriceOut="@{data.itemData.priceOut}"
+        app:itemType="@{data.itemData.type}" />
+</layout>
+

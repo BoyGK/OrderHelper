@@ -15,6 +15,7 @@ import com.baiguoqing.orderhelper.BR
 import com.baiguoqing.orderhelper.R
 import com.baiguoqing.orderhelper.databinding.ActivityMainBinding
 import com.baiguoqing.orderhelper.model.ItemModel
+import com.baiguoqing.orderhelper.util.ActivitySwitcher
 import com.baiguoqing.orderhelper.util.dp2px
 import com.baiguoqing.orderhelper.viewmodel.MainViewModel
 
@@ -28,6 +29,7 @@ class MainActivity : AppCompatActivity() {
         private const val MARGIN_CLOSE = 16
         private const val MARGIN_JUDGE = 64
         private const val MARGIN_OPEN = 117
+        private const val BOTTOM_TOOLS_HEIGHT = 101
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,7 +51,7 @@ class MainActivity : AppCompatActivity() {
 
         mBottomTools = BottomTools.Builder(this, viewDataBinding.root)
         mBottomTools.setFixSoftInputHeight(false)
-        mBottomTools.setBottomToolsHeight(dp2px(101))
+        mBottomTools.setBottomToolsHeight(dp2px(BOTTOM_TOOLS_HEIGHT))
 
         observer()
     }
@@ -69,6 +71,7 @@ class MainActivity : AppCompatActivity() {
 
     fun onClickEditGoodsList(view: View) {
         Log.d("TAG", "onClickEditGoodsList:$view")
+        ActivitySwitcher.switchToEditGoodsActivity(this)
     }
 
     fun onClickNewOrder(view: View) {
