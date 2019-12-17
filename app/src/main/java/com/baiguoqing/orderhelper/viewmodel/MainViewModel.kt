@@ -60,16 +60,19 @@ class MainViewModel : ViewModel() {
     fun notifyDataSetChanged(itemModels: List<ItemModel>) {
         mItemModels.clear()
         mItemModels.addAll(itemModels)
+        mItemModels.sortBy { it.itemData.name }
         mAdapter.notifyDataSetChanged()
     }
 
     fun notifyDataSetChangedByAdd(itemModel: ItemModel) {
         mItemModels.addAll(listOf(itemModel))
+        mItemModels.sortBy { it.itemData.name }
         mAdapter.notifyDataSetChanged()
     }
 
     fun notifyOneItemChanged(position: Int, itemModel: ItemModel) {
         mItemModels[position] = itemModel
+        mItemModels.sortBy { it.itemData.name }
         mAdapter.notifyDataSetChanged()
     }
 

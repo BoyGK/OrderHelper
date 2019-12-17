@@ -2,9 +2,17 @@ package com.baiguoqing.orderhelper.util
 
 import android.app.Activity
 import android.content.Context
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+
+/**
+ * 日志
+ */
+fun log(msg: String) {
+    Log.d(TAG, msg)
+}
 
 /**
  * 单位转换dp转px

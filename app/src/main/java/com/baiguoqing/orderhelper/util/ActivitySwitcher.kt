@@ -1,6 +1,6 @@
 package com.baiguoqing.orderhelper.util
 
-import android.content.Context
+import android.app.Activity
 import android.content.Intent
 import com.baiguoqing.orderhelper.activity.EditGoodsActivity
 
@@ -9,8 +9,13 @@ import com.baiguoqing.orderhelper.activity.EditGoodsActivity
  */
 object ActivitySwitcher {
 
-    fun switchToEditGoodsActivity(context: Context) {
-        context.startActivity(Intent(context, EditGoodsActivity::class.java))
+    fun switchToEditGoodsActivity(activity: Activity) {
+        switchToActivity(activity, EditGoodsActivity::class.java)
+    }
+
+    private fun switchToActivity(activity: Activity, clazz: Class<*>) {
+        log("from ${activity.javaClass.name} to ${clazz.name}")
+        activity.startActivity(Intent(activity, clazz))
     }
 
 }

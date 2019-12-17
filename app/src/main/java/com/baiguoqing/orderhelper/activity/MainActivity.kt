@@ -1,7 +1,6 @@
 package com.baiguoqing.orderhelper.activity
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -17,6 +16,7 @@ import com.baiguoqing.orderhelper.databinding.ActivityMainBinding
 import com.baiguoqing.orderhelper.model.ItemModel
 import com.baiguoqing.orderhelper.util.ActivitySwitcher
 import com.baiguoqing.orderhelper.util.dp2px
+import com.baiguoqing.orderhelper.util.log
 import com.baiguoqing.orderhelper.viewmodel.MainViewModel
 
 class MainActivity : AppCompatActivity() {
@@ -25,6 +25,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mViewModel: MainViewModel
     private lateinit var mBottomTools: BottomTools.Builder
 
+    /**
+     * 底部状态栏高度
+     */
     companion object {
         private const val MARGIN_CLOSE = 16
         private const val MARGIN_JUDGE = 64
@@ -57,7 +60,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onClickEdit(view: View) {
-        Log.d("TAG", "onClickEdit:$view")
+        log("onClickEdit:$view")
         val params = mViewBinding.actionButton.layoutParams as ConstraintLayout.LayoutParams
         if (params.bottomMargin < dp2px(MARGIN_JUDGE)) {
             params.bottomMargin = dp2px(MARGIN_OPEN)
@@ -70,12 +73,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onClickEditGoodsList(view: View) {
-        Log.d("TAG", "onClickEditGoodsList:$view")
+        log("onClickEditGoodsList:$view")
         ActivitySwitcher.switchToEditGoodsActivity(this)
     }
 
     fun onClickNewOrder(view: View) {
-        Log.d("TAG", "onClickNewOrder:$view")
+        log("onClickNewOrder:$view")
     }
 
     private fun observer() {

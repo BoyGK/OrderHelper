@@ -52,7 +52,7 @@ class CommonItemView @JvmOverloads constructor(
     private var mItemAdd: ConstraintLayout
 
     init {
-        LayoutInflater.from(context).inflate(R.layout.item_common, this)
+        LayoutInflater.from(context).inflate(R.layout.common_item, this)
         mItemCommodity = findViewById(R.id.item_commodity)
         mItemName = findViewById(R.id.item_common_name)
         mItemIn = findViewById(R.id.item_common_price_in)
