@@ -10,4 +10,9 @@
     <string name="todo">TODO</string>
     <string name="edit_list_goods">编辑配货列表</string>
     <string name="new_order">新建订单</string>
+    <string name="goodsName">商品名称</string>
+    <string name="priceIn">进价</string>
+    <string name="priceOut">配送价</string>
+    <string name="ok">确认</string>
+    <string name="goods_name_can_not_null">商品名称不能为空！！！</string>
 </resources>

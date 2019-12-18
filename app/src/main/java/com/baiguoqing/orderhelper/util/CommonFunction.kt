@@ -45,3 +45,10 @@ fun Activity.closeSoftInput(view: View) {
 fun Activity.showToast(msg: String) {
     Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
 }
+
+/**
+ * 弹框提示
+ */
+fun showToast(context: Context, msg: String) {
+    Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+}

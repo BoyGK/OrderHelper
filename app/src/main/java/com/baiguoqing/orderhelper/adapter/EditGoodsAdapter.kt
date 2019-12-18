@@ -8,11 +8,19 @@ import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import com.baiguoqing.orderhelper.BR
 import com.baiguoqing.orderhelper.R
+import com.baiguoqing.orderhelper.bean.ItemData
 import com.baiguoqing.orderhelper.model.ItemModel
 import com.baiguoqing.orderhelper.util.log
+import com.baiguoqing.orderhelper.viewmodel.EditGoodsViewModel
+import com.baiguoqing.orderhelper.widget.CommonDialog
+import com.baiguoqing.orderhelper.widget.CommonItemView
 
-class EditGoodsAdapter(private val items: List<ItemModel>) :
-    RecyclerView.Adapter<EditGoodsAdapter.EditGoodsAdapterHolder>() {
+class EditGoodsAdapter(
+    private val items: ArrayList<ItemModel>,
+    private val itemViewModel: EditGoodsViewModel
+) : RecyclerView.Adapter<EditGoodsAdapter.EditGoodsAdapterHolder>() {
+
+    lateinit var commonDialog: CommonDialog
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EditGoodsAdapterHolder {
         val viewDataBinding = DataBindingUtil.inflate<ViewDataBinding>(
@@ -36,7 +44,32 @@ class EditGoodsAdapter(private val items: List<ItemModel>) :
 
     private fun clickItem(view: View, position: Int) {
         log("clickItem:$view")
-
+        val data: ArrayList<ItemModel> = itemViewModel.mItems.value!!
+        commonDialog = CommonDialog.Builder(view.context)
+            .setGoodsName(data[position].itemData.name)
+            .setPriceIn(data[position].itemData.priceIn)
+            .setPriceOut(data[position].itemData.priceOut)
+            .setPositive(object : CommonDialog.Positive {
+                override fun positive(view: View) {
+                    val item = ItemModel(
+                        ItemData(
+                            CommonItemView.ITEM_TYPE_COMMODITY,
+                            commonDialog.mGoodsName,
+                            String.format("%.2f", commonDialog.mGoodsPriceIn).toFloat(),
+                            String.format("%.2f", commonDialog.mGoodsPriceOut).toFloat(),
+                            0,
+                            "",
+                            0f,
+                            0f,
+                            "",
+                            0f
+                        )
+                    )
+                    if (position == 0) data.add(item) else data[position] = item
+                    itemViewModel.mItems.postValue(data)
+                }
+            })
+            .show()
     }
 
     class EditGoodsAdapterHolder(val viewDataBinding: ViewDataBinding) :

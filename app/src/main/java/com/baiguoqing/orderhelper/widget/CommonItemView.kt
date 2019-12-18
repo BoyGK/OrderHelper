@@ -134,7 +134,9 @@ class CommonItemView @JvmOverloads constructor(
     }
 
     fun setNum(num: Int) {
-        val text = context.getString(R.string.num) + num
+        val text =
+            if (num != 0) context.getString(R.string.num) + num
+            else context.getString(R.string.num) + "    /"
         mItemNum.text = text
     }
 

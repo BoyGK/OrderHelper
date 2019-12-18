@@ -12,8 +12,8 @@ import com.baiguoqing.orderhelper.viewmodel.EditGoodsViewModel
 
 class EditGoodsActivity : AppCompatActivity() {
 
-    lateinit var mEditGoodsBinding: ActivityEditGoodsBinding
-    lateinit var mViewModel: EditGoodsViewModel
+    private lateinit var mEditGoodsBinding: ActivityEditGoodsBinding
+    private lateinit var mViewModel: EditGoodsViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +32,7 @@ class EditGoodsActivity : AppCompatActivity() {
         mViewModel.mItems.observe(this, mItemDataSetChanged)
     }
 
-    private val mItemDataSetChanged: Observer<List<ItemModel>> = Observer {
+    private val mItemDataSetChanged: Observer<ArrayList<ItemModel>> = Observer {
         mViewModel.notifyDataSetChanged(it)
     }
 }
