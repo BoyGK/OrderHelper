@@ -8,7 +8,9 @@ import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import com.baiguoqing.orderhelper.BR
 import com.baiguoqing.orderhelper.R
+import com.baiguoqing.orderhelper.app.App
 import com.baiguoqing.orderhelper.bean.ItemData
+import com.baiguoqing.orderhelper.bean.entity.Goods
 import com.baiguoqing.orderhelper.model.ItemModel
 import com.baiguoqing.orderhelper.util.log
 import com.baiguoqing.orderhelper.viewmodel.EditGoodsViewModel
@@ -16,7 +18,7 @@ import com.baiguoqing.orderhelper.widget.CommonDialog
 import com.baiguoqing.orderhelper.widget.CommonItemView
 
 class EditGoodsAdapter(
-    private val items: ArrayList<ItemModel>,
+    private val items: MutableList<ItemModel>,
     private val itemViewModel: EditGoodsViewModel
 ) : RecyclerView.Adapter<EditGoodsAdapter.EditGoodsAdapterHolder>() {
 
@@ -44,7 +46,7 @@ class EditGoodsAdapter(
 
     private fun clickItem(view: View, position: Int) {
         log("clickItem:$view")
-        val data: ArrayList<ItemModel> = itemViewModel.mItems.value!!
+        val data: MutableList<ItemModel> = itemViewModel.mItems.value!!
         commonDialog = CommonDialog.Builder(view.context)
             .setGoodsName(data[position].itemData.name)
             .setPriceIn(data[position].itemData.priceIn)
@@ -65,7 +67,20 @@ class EditGoodsAdapter(
                             0f
                         )
                     )
-                    if (position == 0) data.add(item) else data[position] = item
+                    val goods = Goods(
+                        data.size,
+                        item.itemData.name,
+                        item.itemData.priceIn,
+                        item.itemData.priceOut,
+                        item.itemData.num
+                    )
+                    if (position == 0) {
+                        data.add(item)
+                        App.instance.dbManager.goodsDB.insert(goods)
+                    } else {
+                        data[position] = item
+                        App.instance.dbManager.goodsDB.update(goods)
+                    }
                     itemViewModel.mItems.postValue(data)
                 }
             })

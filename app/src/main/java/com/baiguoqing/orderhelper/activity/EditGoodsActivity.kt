@@ -32,7 +32,7 @@ class EditGoodsActivity : AppCompatActivity() {
         mViewModel.mItems.observe(this, mItemDataSetChanged)
     }
 
-    private val mItemDataSetChanged: Observer<ArrayList<ItemModel>> = Observer {
+    private val mItemDataSetChanged: Observer<MutableList<ItemModel>> = Observer {
         mViewModel.notifyDataSetChanged(it)
     }
 }

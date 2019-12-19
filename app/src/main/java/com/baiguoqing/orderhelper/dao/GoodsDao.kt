@@ -1,27 +1,25 @@
 package com.baiguoqing.orderhelper.dao
 
 import androidx.room.*
-import com.baiguoqing.orderhelper.bean.entry.Goods
 
 @Dao
-interface GoodsDao {
+interface GoodsDao : IDao {
 
     @Query("SELECT * FROM goods")
-    fun getAll(): List<Goods>
+    override fun <T : Any> loadAll(): MutableList<T>
 
-    @Query("SELECT * FROM goods WHERE goodsId IN (:goodsIds)")
-    fun loadAllByIds(goodsIds: IntArray): List<Goods>
+    @Query("SELECT * FROM goods WHERE goodsId IN (:ids)")
+    override fun <T : Any> loadByIds(ids: IntArray): MutableList<T>
 
-    @Query("SELECT * FROM goods WHERE name = (:name)")
-    fun findByName(name: String): Goods
+    @Query("SELECT * FROM goods WHERE goodsId = (:id)")
+    override fun <T : Any> loadById(id: Int): T
 
     @Insert
-    fun insertAll(vararg goods: Goods)
+    override fun <T : Any> insert(vararg data: T)
 
     @Update
-    fun update(goods: Goods);
+    override fun <T : Any> update(data: T)
 
     @Delete
-    fun delete(goods: Goods)
-
+    override fun <T : Any> delete(data: T)
 }
