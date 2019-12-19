@@ -24,16 +24,39 @@ class EditGoodsViewModel : ViewModel() {
     }
 
     init {
-        val arr = mutableListOf(
-            ItemModel(
-                ItemData(
-                    CommonItemView.ITEM_TYPE_ADD, "", 0f, 0f, 0,
-                    "", 0f, 0f, "", 0f
+        mItems.postValue(
+            mutableListOf(
+                ItemModel(
+                    ItemData(
+                        CommonItemView.ITEM_TYPE_ADD, "", 0f, 0f, 0,
+                        "", 0f, 0f, "", 0f
+                    )
                 )
             )
         )
-        arr.addAll(App.instance.dbManager.goodsDB.loadAll())
-        mItems.postValue(arr)
+        Thread {
+            val a = App.instance.dbManager.goodsDB.loadAll()
+            val arr = mutableListOf<ItemModel>()
+            for (goods in a) {
+                arr.add(
+                    ItemModel(
+                        ItemData(
+                            CommonItemView.ITEM_TYPE_COMMODITY,
+                            goods.name,
+                            goods.priceIn,
+                            goods.priceOut,
+                            goods.num,
+                            "",
+                            0f,
+                            0f,
+                            "",
+                            0f
+                        )
+                    )
+                )
+            }
+            mItems.postValue(arr)
+        }.start()
     }
 
     fun notifyDataSetChanged(itemModels: MutableList<ItemModel>) {

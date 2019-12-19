@@ -2,9 +2,9 @@ package com.baiguoqing.orderhelper.db
 
 import androidx.room.Room
 import com.baiguoqing.orderhelper.app.App
-import com.baiguoqing.orderhelper.dao.IDao
+import com.baiguoqing.orderhelper.bean.entity.Goods
 
-class GoodsDB : IDao {
+class GoodsDB {
 
     private val db: AppDatabase by lazy {
         Room.databaseBuilder(
@@ -14,27 +14,28 @@ class GoodsDB : IDao {
         ).build()
     }
 
-    override fun <T : Any> loadAll(): MutableList<T> {
+    fun loadAll(): MutableList<Goods> {
         return db.goodsDao().loadAll()
     }
 
-    override fun <T : Any> loadByIds(ids: IntArray): MutableList<T> {
+    fun loadByIds(ids: IntArray): MutableList<Goods> {
         return db.goodsDao().loadByIds(ids)
     }
 
-    override fun <T : Any> loadById(id: Int): T {
+    fun loadById(id: Int): Goods {
         return db.goodsDao().loadById(id)
     }
 
-    override fun <T : Any> insert(vararg data: T) {
+    fun insert(data: Goods) {
         return db.goodsDao().insert(data)
     }
 
-    override fun <T : Any> update(data: T) {
+    fun update(data: Goods) {
         return db.goodsDao().update(data)
     }
 
-    override fun <T : Any> delete(data: T) {
+    fun delete(data: Goods) {
         return db.goodsDao().delete(data)
     }
+
 }

@@ -76,10 +76,14 @@ class EditGoodsAdapter(
                     )
                     if (position == 0) {
                         data.add(item)
-                        App.instance.dbManager.goodsDB.insert(goods)
+                        Thread {
+                            App.instance.dbManager.goodsDB.insert(goods)
+                        }.start()
                     } else {
                         data[position] = item
-                        App.instance.dbManager.goodsDB.update(goods)
+                        Thread {
+                            App.instance.dbManager.goodsDB.update(goods)
+                        }.start()
                     }
                     itemViewModel.mItems.postValue(data)
                 }
