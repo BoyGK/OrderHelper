@@ -79,6 +79,7 @@ class MainActivity : AppCompatActivity() {
 
     fun onClickNewOrder(view: View) {
         log("onClickNewOrder:$view")
+        ActivitySwitcher.switchToNewOrderActivity(this)
     }
 
     private fun observer() {
