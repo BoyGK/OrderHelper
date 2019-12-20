@@ -3,75 +3,64 @@ package com.baiguoqing.orderhelper.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.baiguoqing.orderhelper.adapter.EditGoodsAdapter
-import com.baiguoqing.orderhelper.app.App
-import com.baiguoqing.orderhelper.bean.ItemData
-import com.baiguoqing.orderhelper.model.ItemModel
-import com.baiguoqing.orderhelper.widget.CommonItemView
+import com.baiguoqing.orderhelper.model.GoodsModel
+import com.baiguoqing.orderhelper.model.item.GoodsItemModel
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.text.Collator
 import java.util.*
 import kotlin.Comparator
 
 class EditGoodsViewModel : ViewModel() {
 
-    val mItems: MutableLiveData<MutableList<ItemModel>> by lazy {
-        MutableLiveData<MutableList<ItemModel>>()
+    val mItems: MutableLiveData<MutableList<GoodsItemModel>> by lazy {
+        MutableLiveData<MutableList<GoodsItemModel>>()
     }
 
-    private var mItemModels = mutableListOf<ItemModel>()
+    private val mItemModels = mutableListOf<GoodsItemModel>()
+
+    private val model: GoodsModel by lazy {
+        GoodsModel(mItemModels)
+    }
 
     val mAdapter: EditGoodsAdapter by lazy {
         EditGoodsAdapter(mItemModels, this)
     }
 
     init {
-        mItems.postValue(
-            mutableListOf(
-                ItemModel(
-                    ItemData(
-                        CommonItemView.ITEM_TYPE_ADD, "", 0f, 0f, 0,
-                        "", 0f, 0f, "", 0f
-                    )
-                )
-            )
-        )
-        Thread {
-            val a = App.instance.dbManager.goodsDB.loadAll()
-            val arr = mutableListOf<ItemModel>()
-            for (goods in a) {
-                arr.add(
-                    ItemModel(
-                        ItemData(
-                            CommonItemView.ITEM_TYPE_COMMODITY,
-                            goods.name,
-                            goods.priceIn,
-                            goods.priceOut,
-                            goods.num,
-                            "",
-                            0f,
-                            0f,
-                            "",
-                            0f
-                        )
-                    )
-                )
-            }
-            mItems.postValue(arr)
-        }.start()
+        GlobalScope.launch {
+            updateUI(model.initList())
+        }
     }
 
-    fun notifyDataSetChanged(itemModels: MutableList<ItemModel>) {
-        mItemModels.clear()
-        mItemModels.addAll(itemModels)
-        sort()
-        mAdapter.notifyDataSetChanged()
+    /**
+     * 数据驱动更新UI
+     */
+    fun updateUI(itemModels: MutableList<GoodsItemModel>) {
+        mItems.postValue(itemModels)
+        model.update(itemModels)
     }
 
-    private fun sort() {
-        val china: Comparator<ItemModel> = Comparator { o1, o2 ->
+    /**
+     * 列表排序
+     */
+    fun sort(itemModels: MutableList<GoodsItemModel>) {
+        val china: Comparator<GoodsItemModel> = Comparator { o1, o2 ->
             val com = Collator.getInstance(Locale.CHINA)
             com.compare(o1.itemData.name, o2.itemData.name)
         }
-        mItemModels.subList(1, mItemModels.size).sortWith(china)
+        if (itemModels.size > 2) {
+            itemModels.subList(1, itemModels.size).sortWith(china)
+        }
+    }
+
+    /**
+     * notify
+     */
+    fun notifyDataSetChanged(itemModels: MutableList<GoodsItemModel>) {
+        mItemModels.clear()
+        mItemModels.addAll(itemModels)
+        mAdapter.notifyDataSetChanged()
     }
 
 }

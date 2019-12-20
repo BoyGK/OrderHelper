@@ -7,7 +7,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.baiguoqing.orderhelper.R
 import com.baiguoqing.orderhelper.databinding.ActivityEditGoodsBinding
-import com.baiguoqing.orderhelper.model.ItemModel
+import com.baiguoqing.orderhelper.model.item.GoodsItemModel
 import com.baiguoqing.orderhelper.viewmodel.EditGoodsViewModel
 
 class EditGoodsActivity : AppCompatActivity() {
@@ -32,7 +32,8 @@ class EditGoodsActivity : AppCompatActivity() {
         mViewModel.mItems.observe(this, mItemDataSetChanged)
     }
 
-    private val mItemDataSetChanged: Observer<MutableList<ItemModel>> = Observer {
+    private val mItemDataSetChanged: Observer<MutableList<GoodsItemModel>> = Observer {
+        mViewModel.sort(it)
         mViewModel.notifyDataSetChanged(it)
     }
 }

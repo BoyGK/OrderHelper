@@ -90,6 +90,10 @@ public class BottomTools {
         mWindowManager.addView(mTools.getView(), mLayoutParams);
     }
 
+    private void destory() {
+        mWindowManager.removeViewImmediate(mTools.getView());
+    }
+
     /**
      * 更新bottomTools高度
      */
@@ -206,6 +210,10 @@ public class BottomTools {
 
         public void dismiss(boolean withSoft) {
             mBottomTools.dismiss(withSoft);
+        }
+
+        public void destory() {
+            mBottomTools.destory();
         }
     }
 }

@@ -6,7 +6,7 @@
 
         <variable
             name="data"
-            type="com.baiguoqing.orderhelper.model.ItemModel" />
+            type="com.baiguoqing.orderhelper.model.item.GoodsItemModel" />
 
     </data>
 
@@ -14,13 +14,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/background_click"
-        app:itemClient="@{data.itemData.client}"
-        app:itemDate="@{data.itemData.date}"
-        app:itemInCome="@{data.itemData.inCome}"
         app:itemName="@{data.itemData.name}"
         app:itemNum="@{data.itemData.num}"
-        app:itemPrice="@{data.itemData.price}"
-        app:itemPriceAll="@{data.itemData.priceAll}"
         app:itemPriceIn="@{data.itemData.priceIn}"
         app:itemPriceOut="@{data.itemData.priceOut}"
         app:itemType="@{data.itemData.type}" />

@@ -88,4 +88,9 @@ class MainActivity : AppCompatActivity() {
     private val mItemDataSetChanged: Observer<List<ItemModel>> = Observer {
         mViewModel.notifyDataSetChanged(it)
     }
+
+    override fun onPause() {
+        super.onPause()
+        mBottomTools.destory()
+    }
 }
