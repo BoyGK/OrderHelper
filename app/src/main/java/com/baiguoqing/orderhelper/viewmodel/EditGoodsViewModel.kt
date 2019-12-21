@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.baiguoqing.orderhelper.adapter.EditGoodsAdapter
 import com.baiguoqing.orderhelper.model.GoodsModel
 import com.baiguoqing.orderhelper.model.item.GoodsItemModel
+import com.baiguoqing.orderhelper.util.isNotEmpty
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.text.Collator
@@ -20,7 +21,7 @@ class EditGoodsViewModel : ViewModel() {
     private val mItemModels = mutableListOf<GoodsItemModel>()
 
     private val model: GoodsModel by lazy {
-        GoodsModel(mItemModels)
+        GoodsModel()
     }
 
     val mAdapter: EditGoodsAdapter by lazy {
@@ -36,9 +37,17 @@ class EditGoodsViewModel : ViewModel() {
     /**
      * 数据驱动更新UI
      */
-    fun updateUI(itemModels: MutableList<GoodsItemModel>) {
+    fun updateUI(
+        itemModels: MutableList<GoodsItemModel>,
+        itemModel: GoodsItemModel? = null,
+        type: String? = null
+    ) {
         mItems.postValue(itemModels)
-        model.update(itemModels)
+        if (isNotEmpty(itemModel) && isNotEmpty(type)) {
+            GlobalScope.launch {
+                model.update(itemModel!!, type!!)
+            }
+        }
     }
 
     /**

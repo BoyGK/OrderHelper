@@ -9,11 +9,11 @@ interface GoodsDao {
     @Query("SELECT * FROM goods")
     fun loadAll(): MutableList<Goods>
 
-    @Query("SELECT * FROM goods WHERE goodsId IN (:ids)")
-    fun loadByIds(ids: IntArray): MutableList<Goods>
+    @Query("SELECT * FROM goods WHERE name IN (:names)")
+    fun loadByIds(names: Array<String>): MutableList<Goods>
 
-    @Query("SELECT * FROM goods WHERE goodsId = (:id)")
-    fun loadById(id: Int): Goods
+    @Query("SELECT * FROM goods WHERE name = (:name)")
+    fun loadById(name: String): Goods
 
     @Insert
     fun insert(data: Goods)

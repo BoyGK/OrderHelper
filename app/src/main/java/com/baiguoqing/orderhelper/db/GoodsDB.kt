@@ -18,12 +18,12 @@ class GoodsDB {
         return db.goodsDao().loadAll()
     }
 
-    fun loadByIds(ids: IntArray): MutableList<Goods> {
-        return db.goodsDao().loadByIds(ids)
+    fun loadByIds(names: Array<String>): MutableList<Goods> {
+        return db.goodsDao().loadByIds(names)
     }
 
-    fun loadById(id: Int): Goods {
-        return db.goodsDao().loadById(id)
+    fun loadById(name: String): Goods {
+        return db.goodsDao().loadById(name)
     }
 
     fun insert(data: Goods) {

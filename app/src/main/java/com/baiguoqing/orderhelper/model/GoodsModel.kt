@@ -8,7 +8,7 @@ import com.baiguoqing.orderhelper.widget.CommonItemView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class GoodsModel(private val itemModels: MutableList<GoodsItemModel>) {
+class GoodsModel {
 
     private val db: GoodsDB by lazy { App.instance.dbManager.goodsDB }
 
@@ -31,24 +31,17 @@ class GoodsModel(private val itemModels: MutableList<GoodsItemModel>) {
         return arr
     }
 
-    fun update(data: MutableList<GoodsItemModel>) {
-        when {
-            itemModels.size == data.size -> {
-                //db update
-
+    fun update(data: GoodsItemModel, type: String) {
+        when (type) {
+            "update" -> {
+                db.update(data.itemData)
             }
-            itemModels.size > data.size -> {
-                //db delete
+            "delete" -> {
+                db.delete(data.itemData)
             }
-            itemModels.size < data.size -> {
-                //db insert
+            "insert" -> {
+                db.insert(data.itemData)
             }
-        }
-    }
-
-    fun compareAndReturn(): GoodsItemModel {
-        for (goodsItemModel in itemModels) {
-
         }
     }
 

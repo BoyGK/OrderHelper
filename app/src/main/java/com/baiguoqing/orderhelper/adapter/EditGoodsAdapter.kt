@@ -8,14 +8,10 @@ import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import com.baiguoqing.orderhelper.BR
 import com.baiguoqing.orderhelper.R
-import com.baiguoqing.orderhelper.app.App
-import com.baiguoqing.orderhelper.bean.entity.Goods
-import com.baiguoqing.orderhelper.model.GoodsModel
 import com.baiguoqing.orderhelper.model.item.GoodsItemModel
 import com.baiguoqing.orderhelper.util.log
 import com.baiguoqing.orderhelper.viewmodel.EditGoodsViewModel
 import com.baiguoqing.orderhelper.widget.CommonDialog
-import com.baiguoqing.orderhelper.widget.CommonItemView
 
 class EditGoodsAdapter(
     private val items: MutableList<GoodsItemModel>,
@@ -42,10 +38,14 @@ class EditGoodsAdapter(
         holder.viewDataBinding.root.setOnClickListener {
             clickItem(it, position)
         }
+        holder.viewDataBinding.root.setOnLongClickListener {
+            longClickItem(it, position)
+        }
     }
 
     private fun clickItem(view: View, position: Int) {
         log("clickItem:$view")
+        /*
         val data: MutableList<GoodsItemModel> = itemViewModel.mItems.value!!
         commonDialog = CommonDialog.Builder(view.context)
             .setGoodsName(data[position].itemData.name)
@@ -62,15 +62,35 @@ class EditGoodsAdapter(
                             0
                         )
                     )
+                    val type: String
                     if (position == 0) {
                         data.add(item)
+                        type = "insert"
                     } else {
                         data[position] = item
+                        type = "update"
                     }
-                    itemViewModel.updateUI(data)
+                    itemViewModel.updateUI(data, item, type)
+                }
+            })
+            .show()*/
+    }
+
+    private fun longClickItem(view: View, position: Int): Boolean {
+        log("longClickItem:$view")
+        val data: MutableList<GoodsItemModel> = itemViewModel.mItems.value!!
+        CommonDialog.Builder(view.context)
+            .setTittle("确定删除该条目？")
+            .setButtonView(object : CommonDialog.Positive {
+                override fun positive(view: View) {
+                    val type = "delete"
+                    val item = data[position]
+                    data.removeAt(position)
+                    itemViewModel.updateUI(data, item, type)
                 }
             })
             .show()
+        return true
     }
 
     class EditGoodsAdapterHolder(val viewDataBinding: ViewDataBinding) :

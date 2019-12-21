@@ -6,4 +6,8 @@ public class Test {
 
     }
 
+    public void a(Object... objects){
+
+    }
+
 }

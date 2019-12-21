@@ -52,3 +52,13 @@ fun Activity.showToast(msg: String) {
 fun showToast(context: Context, msg: String) {
     Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
 }
+
+/**
+ * 不为空
+ */
+fun isNotEmpty(obj: Any?): Boolean {
+    if (obj == null) {
+        return false
+    }
+    return true
+}

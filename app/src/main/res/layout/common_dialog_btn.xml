@@ -1,0 +1,35 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="300dp"
+    android:layout_height="50dp">
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/common_dialog_btn_ok"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_marginTop="@dimen/paddingTopOrBottom"
+        android:layout_marginEnd="@dimen/margin16"
+        android:layout_marginBottom="@dimen/paddingBottom"
+        android:background="@drawable/background_click"
+        android:text="@string/ok"
+        android:textColor="@color/blue"
+        android:textSize="@dimen/titleSp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/common_dialog_btn_other" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/common_dialog_btn_other"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_marginTop="@dimen/paddingTopOrBottom"
+        android:layout_marginEnd="@dimen/margin16"
+        android:layout_marginBottom="@dimen/paddingBottom"
+        android:background="@drawable/background_click"
+        android:textColor="@color/blue"
+        android:textSize="@dimen/titleSp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:text="other" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
