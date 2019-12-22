@@ -8,17 +8,17 @@ import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import com.baiguoqing.orderhelper.BR
 import com.baiguoqing.orderhelper.R
+import com.baiguoqing.orderhelper.bean.entity.Goods
 import com.baiguoqing.orderhelper.model.item.GoodsItemModel
 import com.baiguoqing.orderhelper.util.log
 import com.baiguoqing.orderhelper.viewmodel.EditGoodsViewModel
 import com.baiguoqing.orderhelper.widget.CommonDialog
+import com.baiguoqing.orderhelper.widget.CommonItemView
 
 class EditGoodsAdapter(
     private val items: MutableList<GoodsItemModel>,
     private val itemViewModel: EditGoodsViewModel
 ) : RecyclerView.Adapter<EditGoodsAdapter.EditGoodsAdapterHolder>() {
-
-    lateinit var commonDialog: CommonDialog
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EditGoodsAdapterHolder {
         val viewDataBinding = DataBindingUtil.inflate<ViewDataBinding>(
@@ -45,48 +45,63 @@ class EditGoodsAdapter(
 
     private fun clickItem(view: View, position: Int) {
         log("clickItem:$view")
-        /*
+
         val data: MutableList<GoodsItemModel> = itemViewModel.mItems.value!!
-        commonDialog = CommonDialog.Builder(view.context)
-            .setGoodsName(data[position].itemData.name)
-            .setPriceIn(data[position].itemData.priceIn)
-            .setPriceOut(data[position].itemData.priceOut)
-            .setPositive(object : CommonDialog.Positive {
-                override fun positive(view: View) {
+        val itemName = data[position].itemData.name
+
+        val builder = CommonDialog.Builder(view.context)
+        if (itemName != "") {
+            builder.setEditWithHint(view.context.getString(R.string.goodsName), itemName)
+        } else {
+            builder.setEditText(view.context.getString(R.string.goodsName), "name")
+        }
+        builder.setEditText(view.context.getString(R.string.priceIn), "priceIn")
+            .setEditText(view.context.getString(R.string.priceOut), "priceOut")
+            .setButtonView(object : CommonDialog.PositiveWithEditData {
+                override fun positive(view: View, mutableMap: MutableMap<Any, String>): Boolean {
                     val item = GoodsItemModel(
                         Goods(
                             CommonItemView.ITEM_TYPE_COMMODITY,
-                            commonDialog.mGoodsName,
-                            String.format("%.2f", commonDialog.mGoodsPriceIn).toFloat(),
-                            String.format("%.2f", commonDialog.mGoodsPriceOut).toFloat(),
+                            mutableMap["name"] ?: itemName,
+                            String.format(
+                                "%.2f",
+                                (mutableMap["priceIn"] ?: "0").toFloat()
+                            ).toFloat(),
+                            String.format(
+                                "%.2f",
+                                (mutableMap["priceOut"] ?: "0").toFloat()
+                            ).toFloat(),
                             0
                         )
                     )
-                    val type: String
                     if (position == 0) {
                         data.add(item)
-                        type = "insert"
+                        itemViewModel.updateUI(data, item, "insert")
                     } else {
                         data[position] = item
-                        type = "update"
+                        itemViewModel.updateUI(data, item, "update")
                     }
-                    itemViewModel.updateUI(data, item, type)
+                    return true
                 }
+
             })
-            .show()*/
+            .show()
     }
 
     private fun longClickItem(view: View, position: Int): Boolean {
         log("longClickItem:$view")
+        if (position == 0) {
+            return true
+        }
         val data: MutableList<GoodsItemModel> = itemViewModel.mItems.value!!
         CommonDialog.Builder(view.context)
             .setTittle("确定删除该条目？")
             .setButtonView(object : CommonDialog.Positive {
-                override fun positive(view: View) {
-                    val type = "delete"
+                override fun positive(view: View): Boolean {
                     val item = data[position]
                     data.removeAt(position)
-                    itemViewModel.updateUI(data, item, type)
+                    itemViewModel.updateUI(data, item, "delete")
+                    return true
                 }
             })
             .show()

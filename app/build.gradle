@@ -44,6 +44,7 @@ dependencies {
     implementation "androidx.constraintlayout:constraintlayout:${var}"
     implementation "com.android.support:design"
     implementation "androidx.room:room-ktx:2.2.3"
+    implementation 'com.google.code.gson:gson:2.8.6'
     annotationProcessor "androidx.room:room-compiler:2.2.3"
     kapt "com.android.databinding:compiler:$kotlin_version"
     kapt "androidx.room:room-compiler:2.2.3"

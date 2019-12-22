@@ -4,6 +4,26 @@
 
     <data>
 
+        <variable
+            name="act"
+            type="com.baiguoqing.orderhelper.activity.NewOrderActivity" />
+
+        <variable
+            name="adapter"
+            type="com.baiguoqing.orderhelper.adapter.NewOrderAdapter" />
+
+        <variable
+            name="name"
+            type="String" />
+
+        <variable
+            name="price"
+            type="String" />
+
+        <variable
+            name="inCome"
+            type="String" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
@@ -26,46 +46,54 @@
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:background="@drawable/background_click"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:gravity="center"
+                    android:hint="@string/click_edit_business"
+                    android:onClick="@{act::clickEditName}"
+                    android:text="@{name}"
                     android:textColor="@color/black"
                     android:textSize="24sp"
                     app:layout_constraintHeight_percent="0.5"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintWidth_percent="0.5"
-                    tools:text="二龙屯浩哥" />
+                    app:layout_constraintWidth_percent="0.5" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:background="@drawable/background_click"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:gravity="center"
+                    android:onClick="@{act::clickCreate}"
+                    android:text="@string/order_creating"
                     android:textColor="@color/black"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintHeight_percent="0.5"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintWidth_percent="0.5"
-                    tools:text="订单状态：配货中" />
+                    app:layout_constraintWidth_percent="0.5" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/orderPrice"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:gravity="center_vertical"
+                    android:text="@string/has_order_price"
                     android:textColor="@color/black"
                     android:textSize="20sp"
                     app:layout_constraintHeight_percent="0.25"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintWidth_percent="0.5"
-                    tools:text="已定金额：" />
+                    app:layout_constraintWidth_percent="0.5" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/orderPriceText"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:gravity="center_vertical"
+                    android:text="@{price}"
                     android:textColor="@color/black"
                     android:textSize="20sp"
                     app:layout_constraintHeight_percent="0.25"
@@ -79,19 +107,20 @@
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:gravity="center_vertical"
+                    android:text="@string/will_income"
                     android:textColor="@color/black"
                     android:textSize="20sp"
                     app:layout_constraintHeight_percent="0.25"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/orderPriceText"
-                    app:layout_constraintWidth_percent="0.5"
-                    tools:text="预期收益：" />
+                    app:layout_constraintWidth_percent="0.5" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/orderIncomeText"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:gravity="center_vertical"
+                    android:text="@{inCome}"
                     android:textColor="@color/black"
                     android:textSize="20sp"
                     app:layout_constraintHeight_percent="0.25"
@@ -107,6 +136,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="232dp"
+            app:adapter="@{adapter}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"

@@ -15,12 +15,13 @@ import androidx.appcompat.widget.AppCompatTextView
 import com.baiguoqing.orderhelper.R
 
 /**
- * Created by "nullpointexception0" on 2019/12/17.
+ * Created by "nullpt" on 2019/12/17.
  */
 @SuppressLint("InflateParams")
 class CommonDialog(context: Context) : Dialog(context) {
 
     private var mPositive: Positive? = null
+    private var mPositiveWithData: PositiveWithEditData? = null
     private var mNegative: Negative? = null
     private var mOtherAction: OtherAction? = null
 
@@ -28,7 +29,11 @@ class CommonDialog(context: Context) : Dialog(context) {
         LayoutInflater.from(context).inflate(R.layout.common_dialog, null) as ViewGroup
     }
 
-    val mEditTextContent = mutableMapOf<Any, String>()
+    private val mEditTextContent = mutableMapOf<Any, String>()
+    private var mTittleViewIndex = 0
+    private var mEditTextViewIndex = 0
+    private var mHintViewIndex = 0
+    private var mButtonViewIndex = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,18 +45,47 @@ class CommonDialog(context: Context) : Dialog(context) {
         mNegative?.negative()
     }
 
+    /**
+     * Max Tittle is one
+     */
     private fun createTittleView(tittle: String) {
+        if (mTittleViewIndex++ > 1) {
+            return
+        }
         val view = LayoutInflater.from(context).inflate(R.layout.common_dialog_tittle, mRootView)
         val tvTittle = view.findViewById<AppCompatTextView>(R.id.common_dialog_tittle)
         tvTittle.text = tittle
     }
 
+    /**
+     * Max EditText is three
+     */
     private fun createEditView(leftText: String, tag: Any) {
-        val view = LayoutInflater.from(context).inflate(R.layout.common_dialog_edit, mRootView)
-        val leftView = view.findViewById<AppCompatTextView>(R.id.common_dialog_edit_name)
-        val rightView = view.findViewById<AppCompatEditText>(R.id.common_dialog_edit_text)
-        leftView.text = leftText
-        rightView.tag = tag
+        if (mEditTextViewIndex++ > 3) {
+            return
+        }
+        val view: View
+        var leftView: AppCompatTextView? = null
+        var rightView: AppCompatEditText? = null
+        when (mEditTextViewIndex) {
+            1 -> {
+                view = LayoutInflater.from(context).inflate(R.layout.common_dialog_edit1, mRootView)
+                leftView = view.findViewById(R.id.common_dialog_edit_name1)
+                rightView = view.findViewById(R.id.common_dialog_edit_text1)
+            }
+            2 -> {
+                view = LayoutInflater.from(context).inflate(R.layout.common_dialog_edit2, mRootView)
+                leftView = view.findViewById(R.id.common_dialog_edit_name2)
+                rightView = view.findViewById(R.id.common_dialog_edit_text2)
+            }
+            3 -> {
+                view = LayoutInflater.from(context).inflate(R.layout.common_dialog_edit3, mRootView)
+                leftView = view.findViewById(R.id.common_dialog_edit_name3)
+                rightView = view.findViewById(R.id.common_dialog_edit_text3)
+            }
+        }
+        leftView!!.text = leftText
+        rightView!!.tag = tag
         rightView.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 mEditTextContent[tag] = s.toString()
@@ -65,15 +99,44 @@ class CommonDialog(context: Context) : Dialog(context) {
         })
     }
 
+    /**
+     * Max HintView is three
+     */
     private fun createHintView(leftText: String, rightHint: String) {
-        val view = LayoutInflater.from(context).inflate(R.layout.common_dialog_hint, mRootView)
-        val leftView = view.findViewById<AppCompatTextView>(R.id.common_dialog_hint_name)
-        val rightView = view.findViewById<AppCompatTextView>(R.id.common_dialog_hint_text)
-        leftView.text = leftText
-        rightView.text = rightHint
+        if (mHintViewIndex++ > 3) {
+            return
+        }
+        val view: View
+        var leftView: AppCompatTextView? = null
+        var rightView: AppCompatTextView? = null
+        when (mHintViewIndex) {
+            1 -> {
+                view = LayoutInflater.from(context).inflate(R.layout.common_dialog_hint1, mRootView)
+                leftView = view.findViewById(R.id.common_dialog_hint_name1)
+                rightView = view.findViewById(R.id.common_dialog_hint_text1)
+            }
+            2 -> {
+                view = LayoutInflater.from(context).inflate(R.layout.common_dialog_hint2, mRootView)
+                leftView = view.findViewById(R.id.common_dialog_hint_name2)
+                rightView = view.findViewById(R.id.common_dialog_hint_text2)
+            }
+            3 -> {
+                view = LayoutInflater.from(context).inflate(R.layout.common_dialog_hint3, mRootView)
+                leftView = view.findViewById(R.id.common_dialog_hint_name3)
+                rightView = view.findViewById(R.id.common_dialog_hint_text3)
+            }
+        }
+        leftView!!.text = leftText
+        rightView!!.text = rightHint
     }
 
+    /**
+     * Max ButtonView is one
+     */
     private fun createButtonView(model: Int) {
+        if (mButtonViewIndex++ > 1) {
+            return
+        }
         val view = LayoutInflater.from(context).inflate(R.layout.common_dialog_btn, mRootView)
         val ok = view.findViewById<AppCompatButton>(R.id.common_dialog_btn_ok)
         val other = view.findViewById<AppCompatButton>(R.id.common_dialog_btn_other)
@@ -81,28 +144,39 @@ class CommonDialog(context: Context) : Dialog(context) {
             other.visibility = View.GONE
         }
         ok.setOnClickListener {
-            mPositive?.positive(it)
+            if (mPositive?.positive(it) == true) {
+                dismiss()
+            }
+            if (mPositiveWithData?.positive(it, mEditTextContent) == true) {
+                dismiss()
+            }
         }
         other.setOnClickListener {
-            mOtherAction?.action(it)
+            if (mOtherAction?.action(it) == true) {
+                dismiss()
+            }
         }
     }
 
     interface Positive {
-        fun positive(view: View)
+        fun positive(view: View): Boolean
+    }
+
+    interface PositiveWithEditData {
+        fun positive(view: View, mutableMap: MutableMap<Any, String>): Boolean
+    }
+
+    interface OtherAction {
+        fun action(view: View): Boolean
     }
 
     interface Negative {
         fun negative()
     }
 
-    interface OtherAction {
-        fun action(view: View)
-    }
-
     class Builder(context: Context) {
 
-        var dialog: CommonDialog = CommonDialog(context)
+        private val dialog: CommonDialog = CommonDialog(context)
 
         fun setTittle(tittle: String): Builder {
             dialog.createTittleView(tittle)
@@ -121,6 +195,12 @@ class CommonDialog(context: Context) : Dialog(context) {
 
         fun setButtonView(positive: Positive): Builder {
             dialog.mPositive = positive
+            dialog.createButtonView(0)
+            return this
+        }
+
+        fun setButtonView(positive: PositiveWithEditData): Builder {
+            dialog.mPositiveWithData = positive
             dialog.createButtonView(0)
             return this
         }

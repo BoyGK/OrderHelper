@@ -5,7 +5,7 @@
     android:layout_height="50dp">
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/common_dialog_hint_name"
+        android:id="@+id/common_dialog_hint_name3"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:gravity="center"
@@ -17,7 +17,7 @@
         tools:text="Name" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/common_dialog_hint_text"
+        android:id="@+id/common_dialog_hint_text3"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:gravity="center_vertical"

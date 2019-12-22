@@ -11,16 +11,22 @@ import com.baiguoqing.orderhelper.activity.NewOrderActivity
 object ActivitySwitcher {
 
     fun switchToEditGoodsActivity(activity: Activity) {
-        switchToActivity(activity, EditGoodsActivity::class.java)
+        switchToActivity(activity, Intent(activity, EditGoodsActivity::class.java))
     }
 
     fun switchToNewOrderActivity(activity: Activity) {
-        switchToActivity(activity, NewOrderActivity::class.java)
+        switchToActivity(activity, Intent(activity, NewOrderActivity::class.java))
     }
 
-    private fun switchToActivity(activity: Activity, clazz: Class<*>) {
-        log("from ${activity.javaClass.name} to ${clazz.name}")
-        activity.startActivity(Intent(activity, clazz))
+    fun switchToOrderViewActivity(activity: Activity, orderName: String) {
+        val intent = Intent(activity, NewOrderActivity::class.java)
+        intent.putExtra("orderName", orderName)
+        switchToActivity(activity, intent)
+    }
+
+    private fun switchToActivity(activity: Activity, intent: Intent) {
+        log("from ${activity.javaClass.name} to ${intent.component?.className}")
+        activity.startActivity(intent)
     }
 
 }

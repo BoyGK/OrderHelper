@@ -90,7 +90,11 @@ public class BottomTools {
         mWindowManager.addView(mTools.getView(), mLayoutParams);
     }
 
-    private void destory() {
+    private void restart() {
+        mWindowManager.addView(mTools.getView(), mLayoutParams);
+    }
+
+    private void destroy() {
         mWindowManager.removeViewImmediate(mTools.getView());
     }
 
@@ -212,8 +216,12 @@ public class BottomTools {
             mBottomTools.dismiss(withSoft);
         }
 
-        public void destory() {
-            mBottomTools.destory();
+        public void restart() {
+            mBottomTools.restart();
+        }
+
+        public void destroy() {
+            mBottomTools.destroy();
         }
     }
 }

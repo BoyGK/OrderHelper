@@ -15,4 +15,11 @@
     <string name="priceOut">配送价</string>
     <string name="ok">确认</string>
     <string name="goods_name_can_not_null">商品名称不能为空！！！</string>
+    <string name="order_creating">订单状态：创建中</string>
+    <string name="order_running">订单状态：配送中</string>
+    <string name="order_finish">订单状态：已完成</string>
+    <string name="click_edit_business">点击编辑商家</string>
+    <string name="has_order_price">已定金额：</string>
+    <string name="will_income">预期收益：</string>
+    <string name="create_order_error">创建失败，未填写商家名称或未选择商品！</string>
 </resources>

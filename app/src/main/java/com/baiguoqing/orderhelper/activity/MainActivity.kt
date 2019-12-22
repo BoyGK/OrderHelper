@@ -59,6 +59,16 @@ class MainActivity : AppCompatActivity() {
         observer()
     }
 
+    override fun onRestart() {
+        super.onRestart()
+        mBottomTools.restart()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        mBottomTools.destroy()
+    }
+
     fun onClickEdit(view: View) {
         log("onClickEdit:$view")
         val params = mViewBinding.actionButton.layoutParams as ConstraintLayout.LayoutParams
@@ -75,11 +85,13 @@ class MainActivity : AppCompatActivity() {
     fun onClickEditGoodsList(view: View) {
         log("onClickEditGoodsList:$view")
         ActivitySwitcher.switchToEditGoodsActivity(this)
+        onClickEdit(view)
     }
 
     fun onClickNewOrder(view: View) {
         log("onClickNewOrder:$view")
         ActivitySwitcher.switchToNewOrderActivity(this)
+        onClickEdit(view)
     }
 
     private fun observer() {
@@ -88,10 +100,5 @@ class MainActivity : AppCompatActivity() {
 
     private val mItemDataSetChanged: Observer<List<ItemModel>> = Observer {
         mViewModel.notifyDataSetChanged(it)
-    }
-
-    override fun onPause() {
-        super.onPause()
-        mBottomTools.destory()
     }
 }
