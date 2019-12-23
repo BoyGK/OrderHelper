@@ -81,7 +81,7 @@ class NewOrderViewModel : ViewModel() {
 
 
     fun createOrder(): Boolean {
-        if (!isNotEmpty(mName.value) || !isNotEmpty(mPrice.value) || !isNotEmpty(mInCome.value)) {
+        if (!isNotEmpty(mName.value) || !isNotEmpty(mPrice.value) || !isNotEmpty(mInCome.value) || mName.value == "") {
             return false
         }
         val goodsList = mutableListOf<Goods>()
@@ -97,7 +97,9 @@ class NewOrderViewModel : ViewModel() {
             App.instance.getString(R.string.order_running),
             roomGoodsListToJson(GoodsList(goodsList))
         )
-        model.update(order, "insert")
+        GlobalScope.launch {
+            model.update(order, "insert")
+        }
         return true
     }
 

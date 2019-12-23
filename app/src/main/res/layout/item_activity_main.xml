@@ -6,7 +6,7 @@
 
         <variable
             name="data"
-            type="com.baiguoqing.orderhelper.model.ItemModel" />
+            type="com.baiguoqing.orderhelper.model.item.MainItemModel" />
 
     </data>
 

@@ -13,7 +13,7 @@ import com.baiguoqing.bottomtools.BottomTools
 import com.baiguoqing.orderhelper.BR
 import com.baiguoqing.orderhelper.R
 import com.baiguoqing.orderhelper.databinding.ActivityMainBinding
-import com.baiguoqing.orderhelper.model.ItemModel
+import com.baiguoqing.orderhelper.model.item.MainItemModel
 import com.baiguoqing.orderhelper.util.ActivitySwitcher
 import com.baiguoqing.orderhelper.util.dp2px
 import com.baiguoqing.orderhelper.util.log
@@ -61,6 +61,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onRestart() {
         super.onRestart()
+        mViewModel.reloadList()
         mBottomTools.restart()
     }
 
@@ -98,7 +99,7 @@ class MainActivity : AppCompatActivity() {
         mViewModel.mItems.observe(this, mItemDataSetChanged)
     }
 
-    private val mItemDataSetChanged: Observer<List<ItemModel>> = Observer {
+    private val mItemDataSetChanged: Observer<MutableList<MainItemModel>> = Observer {
         mViewModel.notifyDataSetChanged(it)
     }
 }

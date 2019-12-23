@@ -7,12 +7,12 @@ import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import com.baiguoqing.orderhelper.BR
 import com.baiguoqing.orderhelper.R
-import com.baiguoqing.orderhelper.model.ItemModel
+import com.baiguoqing.orderhelper.model.item.MainItemModel
 
 /**
  * Created by "nullpointexception0" on 2019/12/15.
  */
-class MainAdapter(private val items: List<ItemModel>) :
+class MainAdapter(private val items: MutableList<MainItemModel>) :
     RecyclerView.Adapter<MainAdapter.MainAdapterHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainAdapterHolder {
