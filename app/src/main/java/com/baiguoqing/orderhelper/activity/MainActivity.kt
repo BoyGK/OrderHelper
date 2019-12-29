@@ -60,12 +60,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onRestart() {
+        log("onRestart")
         super.onRestart()
         mViewModel.reloadList()
         mBottomTools.restart()
     }
 
     override fun onPause() {
+        log("onPause")
         super.onPause()
         mBottomTools.destroy()
     }
